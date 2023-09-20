@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
+
+  discovery-service:
+    build:
+      context: ./AppDiscoveryService
+      dockerfile: Dockerfile
+    ports:
+      - "8010:8010"
+    depends_on:
+      - mongo
+
+  api-gateway:
+    build:
+      context: ./AppApiGateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
+  authentication:
+    build:
+      context: ./AppAuthentication
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: mydb
+    depends_on:
+      - mongo
