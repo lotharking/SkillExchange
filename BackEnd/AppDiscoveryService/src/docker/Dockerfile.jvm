@@ -1,0 +1,14 @@
+# Utiliza una imagen base con Java 11
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
+
+# Directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia el archivo JAR de API Gateway
+COPY target/discovery-service.jar .
+
+# Puerto en el que API Gateway escucha
+EXPOSE 8080
+
+# Comando para ejecutar API Gateway
+CMD ["java", "-jar", "discovery-service.jar"]
