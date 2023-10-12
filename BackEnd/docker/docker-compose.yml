@@ -12,7 +12,7 @@ services:
   discovery-service:
     build:
       context: ./AppDiscoveryService
-      dockerfile: Dockerfile
+      dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8761:8761"
     depends_on:
@@ -21,7 +21,7 @@ services:
   api-gateway:
     build:
       context: ./AppApiGateway
-      dockerfile: Dockerfile
+      dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8080:8080"
     depends_on:
@@ -31,7 +31,7 @@ services:
   authentication:
     build:
       context: ./AppAuthentication
-      dockerfile: Dockerfile
+      dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8081:8081"
     environment:
