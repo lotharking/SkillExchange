@@ -14,7 +14,7 @@ services:
       context: ./AppDiscoveryService
       dockerfile: Dockerfile
     ports:
-      - "8010:8010"
+      - "8761:8761"
     depends_on:
       - mongo
 
@@ -26,6 +26,7 @@ services:
       - "8080:8080"
     depends_on:
       - mongo
+      - discovery-service
 
   authentication:
     build:
@@ -39,3 +40,4 @@ services:
       SPRING_DATA_MONGODB_DATABASE: mydb
     depends_on:
       - mongo
+      - api-gateway
