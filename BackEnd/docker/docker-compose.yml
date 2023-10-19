@@ -11,7 +11,7 @@ services:
 
   discovery-service:
     build:
-      context: ./AppDiscoveryService
+      context: ./../AppDiscoveryService
       dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8761:8761"
@@ -20,7 +20,7 @@ services:
 
   api-gateway:
     build:
-      context: ./AppApiGateway
+      context: ./../AppApiGateway
       dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8080:8080"
@@ -30,7 +30,7 @@ services:
 
   authentication:
     build:
-      context: ./AppAuthentication
+      context: ./../AppAuthentication
       dockerfile: src/docker/dockerfile.jvm
     ports:
       - "8081:8081"
