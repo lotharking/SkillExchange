@@ -1,15 +1,15 @@
 version: '3'
 services:
-  # mongo:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   ports:
-  #     - "27017:27017"
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
-  #   networks:
-  #           - spring-cloud-network
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
+    networks:
+      - spring-cloud-network
 
   discovery-service:
     container_name: discovery-service
