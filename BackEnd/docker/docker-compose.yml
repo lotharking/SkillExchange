@@ -18,20 +18,23 @@ services:
       dockerfile: src/docker/Dockerfile.jvm
     ports:
       - "8761:8761"
-    # depends_on:
-    #   - mongo
+    depends_on:
+      - mongo
     networks:
       - spring-cloud-network
 
-  # api-gateway:
-  #   build:
-  #     context: ./../AppApiGateway
-  #     dockerfile: src/docker/Dockerfile.jvm
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - mongo
-  #     - discovery-service
+  gateway-service:
+    container_name: gateway-service
+    build:
+      context: ./../AppApiGateway
+      dockerfile: src/docker/Dockerfile.jvm
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+      - discovery-service
+    networks:
+      - spring-cloud-network
 
 networks:
     spring-cloud-network:
