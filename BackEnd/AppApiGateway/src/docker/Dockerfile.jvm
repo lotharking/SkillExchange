@@ -1,14 +1,16 @@
 # Utiliza una imagen base con Java 11
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
 
-# Directorio de trabajo dentro del contenedor
-WORKDIR /app
+ENV LANGUAGE='en_US:en'
 
-# Copia el archivo JAR de API Gateway
-COPY target/api-gateway.jar .
 
-# Puerto en el que API Gateway escucha
+# We make four distinct layers so if there are application changes the library layers can be re-used
+COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
+COPY --chown=185 target/quarkus-app/*.jar /deployments/
+COPY --chown=185 target/quarkus-app/app/ /deployments/app/
+COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+
 EXPOSE 8080
-
-# Comando para ejecutar API Gateway
-CMD ["java", "-jar", "api-gateway.jar"]
+USER 185
+ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"

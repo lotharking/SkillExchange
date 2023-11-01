@@ -8,36 +8,31 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
+    networks:
+            - spring-cloud-network
 
   discovery-service:
+    container_name: discovery-service
     build:
-      context: ./../AppDiscoveryService
-      dockerfile: src/docker/dockerfile.jvm
+      context: docker-discovery-service
+      dockerfile: src/docker/Dockerfile.jvm
     ports:
       - "8761:8761"
     depends_on:
       - mongo
+    networks:
+      - spring-cloud-network
 
-  api-gateway:
-    build:
-      context: ./../AppApiGateway
-      dockerfile: src/docker/dockerfile.jvm
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mongo
-      - discovery-service
+  # api-gateway:
+  #   build:
+  #     context: ./../AppApiGateway
+  #     dockerfile: src/docker/Dockerfile.jvm
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mongo
+  #     - discovery-service
 
-  authentication:
-    build:
-      context: ./../AppAuthentication
-      dockerfile: src/docker/dockerfile.jvm
-    ports:
-      - "8081:8081"
-    environment:
-      SPRING_DATA_MONGODB_HOST: mongo
-      SPRING_DATA_MONGODB_PORT: 27017
-      SPRING_DATA_MONGODB_DATABASE: mydb
-    depends_on:
-      - mongo
-      - api-gateway
+networks:
+    spring-cloud-network:
+        driver: bridge
