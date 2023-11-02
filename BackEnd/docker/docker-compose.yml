@@ -35,6 +35,8 @@ services:
       - discovery-service
     networks:
       - spring-cloud-network
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-service:8761/eureka/
 
   authentication-service:
     container_name: authentication-service
@@ -49,6 +51,9 @@ services:
       - gateway-service
     networks:
       - spring-cloud-network
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discovery-service:8761/eureka/
+
 
 networks:
     spring-cloud-network:
