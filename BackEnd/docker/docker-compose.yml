@@ -36,6 +36,20 @@ services:
     networks:
       - spring-cloud-network
 
+  authentication-service:
+    container_name: authentication-service
+    build:
+      context: ./../AppApiGateway
+      dockerfile: src/docker/Dockerfile.jvm
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+      - discovery-service
+      - gateway-service
+    networks:
+      - spring-cloud-network
+
 networks:
     spring-cloud-network:
         driver: bridge
