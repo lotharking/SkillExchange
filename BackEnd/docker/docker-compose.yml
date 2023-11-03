@@ -1,15 +1,15 @@
 version: '3'
 services:
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
-    networks:
-      - spring-cloud-network
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
+  #   networks:
+  #     - spring-cloud-network
 
   discovery-service:
     container_name: discovery-service
@@ -18,8 +18,8 @@ services:
       dockerfile: src/docker/Dockerfile.jvm
     ports:
       - "8761:8761"
-    depends_on:
-      - mongo
+    # depends_on:
+    #   - mongo
     networks:
       - spring-cloud-network
 
@@ -31,28 +31,24 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mongo
+      # - mongo
       - discovery-service
     networks:
       - spring-cloud-network
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discovery-service:8761/eureka/
 
-  authentication-service:
-    container_name: authentication-service
-    build:
-      context: ./../AppApiGateway
-      dockerfile: src/docker/Dockerfile.jvm
-    ports:
-      - "8081:8081"
-    depends_on:
-      - mongo
-      - discovery-service
-      - gateway-service
-    networks:
-      - spring-cloud-network
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discovery-service:8761/eureka/
+  # authentication-service:
+  #   container_name: authentication-service
+  #   build:
+  #     context: ./../AppApiGateway
+  #     dockerfile: src/docker/Dockerfile.jvm
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     # - mongo
+  #     - discovery-service
+  #     - gateway-service
+  #   networks:
+  #     - spring-cloud-network
 
 
 networks:
