@@ -1,12 +1,10 @@
-package com.skill.exchange.AppAuthentication.user.core.domain;
+package com.skill.exchange.AppAuthentication.model;
 
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.skill.exchange.AppAuthentication.role.core.domain.Role;
 
 import lombok.Data;
 

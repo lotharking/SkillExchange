@@ -1,4 +1,4 @@
-package com.skill.exchange.AppAuthentication.role.core.domain;
+package com.skill.exchange.AppAuthentication.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
