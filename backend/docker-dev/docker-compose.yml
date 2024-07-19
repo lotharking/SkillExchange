@@ -1,0 +1,36 @@
+version: '3'
+services:
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: ${GIT_PWD}
+  #   networks:
+  #     - spring-cloud-network
+
+  discovery-service:
+    build:
+      context: ./../discovery-service
+      dockerfile: src/docker/Dockerfile.jvm
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-cloud-network
+
+  gateway-service:
+    build:
+      context: ./../api-gateway
+      dockerfile: src/docker/Dockerfile.jvm
+    ports:
+      - "8181:8181"
+    depends_on:
+      - discovery-service
+    networks:
+      - spring-cloud-network
+
+networks:
+    spring-cloud-network:
+        driver: bridge

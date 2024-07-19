@@ -1,7 +1,0 @@
-# Utiliza una imagen base con Java 17
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
-ENV LANGUAGE='en_US:en'
-
-COPY target/AppDiscoveryService-0.0.1-SNAPSHOT.jar /discovery-service-1.0.0.jar
-
-ENTRYPOINT ["java","-jar","/discovery-service-1.0.0.jar"]
